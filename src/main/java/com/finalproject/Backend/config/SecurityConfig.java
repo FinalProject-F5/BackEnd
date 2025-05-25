@@ -1,6 +1,7 @@
 package com.finalproject.Backend.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
+
+import com.finalproject.Backend.model.Country;
+import com.finalproject.Backend.repository.CountryRepository;
+import com.ibm.icu.util.ULocale;
 
 @Configuration
 @EnableWebSecurity
@@ -51,6 +56,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/countries/all").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -59,6 +65,20 @@ public class SecurityConfig {
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+
+    @Bean
+    public CommandLineRunner initCountries(CountryRepository countryRepository) {
+        return args -> {
+            if (countryRepository.count() == 0) {
+                for (String code : ULocale.getISOCountries()) {
+                    ULocale locale = new ULocale("", code);
+                    String name = locale.getDisplayCountry(ULocale.getDefault());
+                    countryRepository.save(new Country(code, name));
+                } 
+            }
+        };
     }
 
 }

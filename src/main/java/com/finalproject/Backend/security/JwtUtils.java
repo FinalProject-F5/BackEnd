@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import com.finalproject.Backend.model.User;
+import com.finalproject.Backend.repository.UserRepository;
  
 
 import java.security.Key;
@@ -26,7 +28,12 @@ public class JwtUtils {
 
    @Value("${app.jwt.expiration}")
    private int jwtExpirationMs;
-    
+
+   private UserRepository userRepository;
+
+   public JwtUtils(@Autowired UserRepository userRepository) {
+       this.userRepository = userRepository;
+   }
 
    public String generateJwtToken(Authentication authentication) {
        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
@@ -37,10 +44,9 @@ public class JwtUtils {
        
        Map<String, Object> claims = new HashMap<>();
        claims.put("id", user.getId());
-       claims.put("name", user.getName());
-       claims.put("username", user.getUserName());
+       claims.put("username", user.getUsername());
        claims.put("email", user.getEmail());
-       claims.put("countryOfOrigin", user.getCountryOfOrigin());
+       claims.put("countryOfOrigin", user.getCountry());
 
        return Jwts.builder()
                .setClaims(claims)
@@ -82,15 +88,7 @@ public class JwtUtils {
                .get("name");
    }
    
-   public String getRoleFromJwtToken(String token) {
-       return (String) Jwts.parserBuilder()
-               .setSigningKey(key())
-               .build()
-               .parseClaimsJws(token)
-               .getBody()
-               .get("role");
-   }
-
+   
    public boolean validateJwtToken(String authToken) {
        try {
            Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(authToken);

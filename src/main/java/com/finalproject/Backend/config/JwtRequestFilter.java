@@ -12,9 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource; 
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.stereotype.Component;
 
 import com.finalproject.Backend.security.JwtUtils;
 
+@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private UserDetailsService userDetailsService;
@@ -39,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
            return;
        }
 
-       if (path.contains("/api/auth")) {
+       if (path.contains("/api/auth") || path.contains("/api/countries/all")) {
            chain.doFilter(request, response);
            return;
        }
