@@ -63,7 +63,7 @@ public class AuthService {
                    jwt,
                    "Bearer",
                    user.getId(),
-                   user.getUsername(),
+                   user.getName(),
                    user.getEmail());
        } catch (Exception e) {
            System.out.println("Error during authentication: {}" + e.getMessage());
@@ -74,7 +74,7 @@ public class AuthService {
    public boolean verifyToken(String token) {
        try {
            if (jwtUtils.validateJwtToken(token)) {
-               String email = jwtUtils.getUsernameFromJwtToken(token);
+               String email = jwtUtils.getNameFromJwtToken(token);
                return userRepository.findByEmail(email).isPresent();
            }
            return false;

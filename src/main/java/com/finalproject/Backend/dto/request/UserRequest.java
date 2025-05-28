@@ -14,7 +14,7 @@ import lombok.Getter;
 public class UserRequest {
    @NotBlank
    @Size(max = 50)
-   private String username;
+   private String name;
 
    @NotBlank
    @Size(max = 120)
@@ -28,10 +28,10 @@ public class UserRequest {
    @Size(max = 20)
    private String countryCode;
    
-   @Size(max = 200)
-   private String interest;
+   // @Size(max = 200)
+   // private String interest;
 
-   @Size(max = 200)
-   private String bio;
+   // @Size(max = 200)
+   // private String bio;
  
 }

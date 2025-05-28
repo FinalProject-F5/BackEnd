@@ -44,7 +44,7 @@ public class JwtUtils {
        
        Map<String, Object> claims = new HashMap<>();
        claims.put("id", user.getId());
-       claims.put("username", user.getUsername());
+       claims.put("username", user.getName());
        claims.put("email", user.getEmail());
        claims.put("countryOfOrigin", user.getCountry());
 
@@ -61,14 +61,7 @@ public class JwtUtils {
        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
    }
 
-   public String getUsernameFromJwtToken(String token) {
-       return Jwts.parserBuilder()
-               .setSigningKey(key())
-               .build()
-               .parseClaimsJws(token)
-               .getBody()
-               .getSubject();
-   }
+  
     
    public Long getUserIdFromJwtToken(String token) {
        return ((Number) Jwts.parserBuilder()

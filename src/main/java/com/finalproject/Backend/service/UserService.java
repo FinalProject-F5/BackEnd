@@ -50,12 +50,12 @@ public class UserService {
 
 
        User user = new User(null,
-                            userRequest.getUsername(),
+                            userRequest.getName(),
                             userRequest.getEmail(),
                             passwordEncoder.encode(userRequest.getPassword()),
                             country,
-                            userRequest.getInterest(),
-                            userRequest.getBio(),
+                            "",
+                            "",
                             null,  
                             null);
        return userRepository.save(user);
@@ -71,7 +71,7 @@ public class UserService {
 
 
         User userData = new User(id, 
-                            userFound.getUsername(),
+                            userFound.getName(),
                             userFound.getEmail(),
                             userFound.getPassword(),
                             userFound.getCountry(),
