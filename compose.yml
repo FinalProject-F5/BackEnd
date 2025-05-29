@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: travel.db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "54321:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  admin:
+    image: dpage/pgadmin4
+    container_name: travel.pgadmin
+    restart: always
+    ports:
+      - "8881:80"
+    env_file:
+      - .env
+    volumes:
+      - travel.pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  travel.pgadmin-data:

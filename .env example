@@ -1,0 +1,13 @@
+DATABASE_URL=jdbc:postgresql://localhost:54321/travel
+DATABASE_USERNAME=sameAsPostgresUser
+DATABASE_PASSWORD=sameAsPostgresPassword
+
+
+
+POSTGRES_HOST=localhost
+POSTGRES_USER=sameAsPostgresUser
+POSTGRES_PASSWORD=sameAsPostgresPassword
+POSTGRES_DB=travel
+POSTGRES_PORT=54321
+PGADMIN_DEFAULT_EMAIL=yourname@email.com
+PGADMIN_DEFAULT_PASSWORD=
