@@ -2,8 +2,6 @@ package com.finalproject.Backend.security;
 
 import com.finalproject.Backend.model.User;
 import com.finalproject.Backend.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

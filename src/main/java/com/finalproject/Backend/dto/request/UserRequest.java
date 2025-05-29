@@ -1,6 +1,4 @@
 package com.finalproject.Backend.dto.request;
-  
-import com.finalproject.Backend.model.Country;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
