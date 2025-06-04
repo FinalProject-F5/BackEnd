@@ -1,4 +1,4 @@
-package com.finalproject.Backend.controller;
+package com.finalproject.Backend.controller; 
 
 import java.util.List;
 
@@ -12,8 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.finalproject.Backend.model.Experience;
+import com.finalproject.Backend.dto.request.ExperienceRequestDTO;
+import com.finalproject.Backend.dto.response.ExperienceResponseDTO;
 import com.finalproject.Backend.service.ExperienceService;
+
+import jakarta.validation.Valid;
+
+
+
 
 @RestController
 @RequestMapping("/api/experiences")
@@ -26,30 +32,31 @@ public class ExperienceController {
     }
 
     @GetMapping
-    public List<Experience> getAllExperiences() {
+    public List<ExperienceResponseDTO> getAllExperiences() {
         return experienceService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Experience> getExperienceById(@PathVariable Long id) {
+    public ResponseEntity<ExperienceResponseDTO> getExperienceById(@PathVariable Long id) {
         return experienceService.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/user/{userId}")
-    public List<Experience> getExperiencesByUser(@PathVariable Long userId) {
+    public List<ExperienceResponseDTO> getExperiencesByUser(@PathVariable Long userId) {
         return experienceService.getByUserId(userId);
     }
 
     @PostMapping
-    public Experience createExperience(@RequestBody Experience experience) {
-        return experienceService.create(experience);
+    public ResponseEntity<ExperienceResponseDTO> createExperience(@Valid @RequestBody ExperienceRequestDTO dto) {
+        return ResponseEntity.ok(experienceService.create(dto));
     }
 
     @PutMapping("/{id}")
-    public Experience updateExperience(@PathVariable Long id, @RequestBody Experience experience) {
-        return experienceService.update(id, experience);
+    public ResponseEntity<ExperienceResponseDTO> updateExperience(@PathVariable Long id,
+                                                                  @Valid @RequestBody ExperienceRequestDTO dto) {
+        return ResponseEntity.ok(experienceService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
@@ -58,4 +65,3 @@ public class ExperienceController {
         return ResponseEntity.noContent().build();
     }
 }
-  

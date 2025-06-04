@@ -2,50 +2,73 @@ package com.finalproject.Backend.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.finalproject.Backend.dto.request.ExperienceRequestDTO;
+import com.finalproject.Backend.dto.response.ExperienceResponseDTO;
+import com.finalproject.Backend.mapper.ExperienceMapper;
 import com.finalproject.Backend.model.Experience;
+import com.finalproject.Backend.model.User;
 import com.finalproject.Backend.repository.ExperienceRepository;
+import com.finalproject.Backend.repository.UserRepository;
 
 @Service
 public class ExperienceService {
 
     private final ExperienceRepository experienceRepository;
+    private final UserRepository userRepository;
 
-    public ExperienceService(ExperienceRepository experienceRepository) {
+    public ExperienceService(ExperienceRepository experienceRepository, UserRepository userRepository) {
         this.experienceRepository = experienceRepository;
+        this.userRepository = userRepository;
     }
 
-    public List<Experience> getAll() {
-        return experienceRepository.findAll();
+    public List<ExperienceResponseDTO> getAll() {
+        return experienceRepository.findAll()
+                .stream()
+                .map(ExperienceMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Experience> getByUserId(Long userId) {
-        return experienceRepository.findByUserId(userId);
+    public List<ExperienceResponseDTO> getByUserId(Long userId) {
+        return experienceRepository.findByUserId(userId)
+                .stream()
+                .map(ExperienceMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Experience> getById(Long id) {
-        return experienceRepository.findById(id);
-    }
-
-    public Experience create(Experience experience) {
-        return experienceRepository.save(experience);
-    }
-
-    public Experience update(Long id, Experience newExp) {
+    public Optional<ExperienceResponseDTO> getById(Long id) {
         return experienceRepository.findById(id)
-                .map(existing -> {
-                    existing.setTitle(newExp.getTitle());
-                    existing.setHost(newExp.getHost());
-                    existing.setCategory(newExp.getCategory());
-                    existing.setDescription(newExp.getDescription());
-                    existing.setLocation(newExp.getLocation());
-                    existing.setPrice(newExp.getPrice());
-                    existing.setStartDate(newExp.getStartDate());
-                    existing.setEndDate(newExp.getEndDate());
-                    return experienceRepository.save(existing);
-                }).orElseThrow(() -> new RuntimeException("Experience not found"));
+                .map(ExperienceMapper::toDTO);
+    }
+
+    public ExperienceResponseDTO create(ExperienceRequestDTO dto) {
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with id " + dto.getUserId()));
+        Experience experience = ExperienceMapper.toEntity(dto, user);
+        return ExperienceMapper.toDTO(experienceRepository.save(experience));
+    }
+
+    public ExperienceResponseDTO update(Long id, ExperienceRequestDTO dto) {
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Experience experience = experienceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Experience not found"));
+
+        experience.setTitle(dto.getTitle());
+        experience.setHost(dto.getHost());
+        experience.setCategory(dto.getCategory());
+        experience.setDescription(dto.getDescription());
+        experience.setLocation(dto.getLocation());
+        experience.setPrice(dto.getPrice());
+        experience.setStartDate(dto.getStartDate());
+        experience.setEndDate(dto.getEndDate());
+        experience.setUser(user);
+
+        return ExperienceMapper.toDTO(experienceRepository.save(experience));
     }
 
     public void delete(Long id) {
