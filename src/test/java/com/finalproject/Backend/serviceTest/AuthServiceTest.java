@@ -1,4 +1,4 @@
-package com.finalproject.Backend; 
+package com.finalproject.Backend.serviceTest; 
 
 import com.finalproject.Backend.model.User; 
 import com.finalproject.Backend.repository.UserRepository;
