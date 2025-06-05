@@ -69,13 +69,17 @@ public class ExperienceService {
                 .orElseThrow(() -> new RuntimeException("Experience not found"));
 
         experience.setTitle(dto.getTitle());
-        experience.setHost(dto.getHost());
+        experience.setLocation(dto.getLocation());
         experience.setCategory(dto.getCategory());
         experience.setDescription(dto.getDescription());
-        experience.setLocation(dto.getLocation());
-        experience.setPrice(dto.getPrice());
-        experience.setStartDate(dto.getStartDate());
-        experience.setEndDate(dto.getEndDate());
+        experience.setDuration(dto.getDuration()); 
+        experience.setPrice(dto.getPrice()); 
+        experience.setItinerary(dto.getItinerary());
+        experience.setObservation(dto.getObservation());
+        experience.setHost(dto.getHost());
+        experience.setEmail(dto.getEmail());
+        experience.setMobile(dto.getMobile()); 
+        experience.setAddInfo(dto.getAddInfo());
         experience.setUser(user);
 
         return ExperienceMapper.toDTO(experienceRepository.save(experience));

@@ -1,8 +1,13 @@
 package com.finalproject.Backend.dto.request;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.sql.Time;
 
+
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,31 +20,50 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExperienceRequestDTO {
 
-    @NotBlank
+     @NotBlank
     @Size(max = 100)
     private String title;
+
+    @NotBlank
+    @Size(max = 100)
+    private String location;
+
+    @NotBlank
+    private String category;
+
+    @NotBlank
+    @Size(min = 100)
+    private String description;
+
+
+  
+    private Time duration;
+
+    @NotNull
+    @DecimalMin("0.0")
+    private BigDecimal price;
+
+    @Size(min = 300)
+    private String itinerary;
+
+    @Size(min = 300)
+    private String observation;
 
     @NotBlank
     @Size(max = 100)
     private String host;
 
     @NotBlank
+    @Email
     @Size(max = 100)
-    private String category;
+    private String email;
 
-    @Size(max = 255)
-    private String description;
+    
+    @Size(max = 20)
+    private String mobile;
 
-    @Size(max = 100)
-    private String location;
-
-    @NotBlank
-    @Size(max = 100)
-    private String price;
-
-    private LocalDate startDate;
-
-    private LocalDate endDate;
+    
+    private String addInfo;
 
     private Long userId;  
 }
