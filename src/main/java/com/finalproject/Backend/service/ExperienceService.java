@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.finalproject.Backend.dto.request.ExperienceRequestDTO;
 import com.finalproject.Backend.dto.response.ExperienceResponseDTO;
+import com.finalproject.Backend.exception.ResourceNotFoundException;
 import com.finalproject.Backend.mapper.ExperienceMapper;
 import com.finalproject.Backend.model.Experience;
 import com.finalproject.Backend.model.User;
@@ -24,6 +25,15 @@ public class ExperienceService {
         this.experienceRepository = experienceRepository;
         this.userRepository = userRepository;
     }
+
+      public List<Experience> getAllExperiences() {
+       return experienceRepository.findAll();
+   }
+
+   public Experience getExperienceById(Long id) {
+       return experienceRepository.findById(id)
+               .orElseThrow(() -> new ResourceNotFoundException("Experience", "id", id));
+   }
 
     public List<ExperienceResponseDTO> getAll() {
         return experienceRepository.findAll()
