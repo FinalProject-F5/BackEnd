@@ -1,8 +1,6 @@
 package com.finalproject.Backend.dto.request;
 
 import java.math.BigDecimal;
-import java.sql.Time;
-
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Email;
@@ -37,7 +35,7 @@ public class ExperienceRequestDTO {
 
 
   
-    private Time duration;
+    private String duration;
 
     @NotNull
     @DecimalMin("0.0")
@@ -66,4 +64,5 @@ public class ExperienceRequestDTO {
     private String addInfo;
 
     private Long userId;  
+    private String userName; 
 }

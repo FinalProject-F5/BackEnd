@@ -1,7 +1,6 @@
 package com.finalproject.Backend.model;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,7 +48,7 @@ public class Experience {
 
 
   
-    private Time duration;
+    private String duration;
 
     @NotNull
     @DecimalMin("0.0")

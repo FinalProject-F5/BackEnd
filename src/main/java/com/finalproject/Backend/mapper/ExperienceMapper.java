@@ -29,23 +29,23 @@ public class ExperienceMapper {
     }
 
     public static ExperienceResponseDTO toDTO(Experience exp) {
-        return new ExperienceResponseDTO(
-                exp.getId(),
-                exp.getTitle(),
-                exp.getLocation(),
+    return new ExperienceResponseDTO(
+        exp.getId(),                   
+        exp.getTitle(),
+        exp.getLocation(),
         exp.getCategory(),
         exp.getDescription(),
-        exp.getDuration(),
-        exp.getPrice(),
+        exp.getDuration(), 
+        exp.getPrice(),                
         exp.getItinerary(),
         exp.getObservation(),
         exp.getHost(),
         exp.getEmail(),
-        exp.getMobile(), 
+        exp.getMobile(),
         exp.getAddInfo(),
-               exp.getUser().getId(),
-                exp.getUser().getName()
-        );
+        exp.getUser().getId(),
+        exp.getUser().getName() 
+    );
     }
 }
  
