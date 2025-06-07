@@ -72,13 +72,13 @@ public class JwtUtils {
                .get("id")).longValue();
    }
    
-   public String getNameFromJwtToken(String token) {
+   public String getEmailFromJwtToken(String token) {
        return (String) Jwts.parserBuilder()
                .setSigningKey(key())
                .build()
                .parseClaimsJws(token)
                .getBody()
-               .get("name");
+               .get("email");
    }
    
    
