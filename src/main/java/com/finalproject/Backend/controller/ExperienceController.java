@@ -51,10 +51,6 @@ public class ExperienceController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/user/{userId}")
-    public List<ExperienceResponseDTO> getExperiencesByUser(@PathVariable Long userId) {
-        return experienceService.getByUserId(userId);
-    }
 
     @PostMapping
     public ResponseEntity<ExperienceResponseDTO> createExperience(@Valid @RequestBody ExperienceRequestDTO dto) {
