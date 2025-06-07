@@ -63,6 +63,5 @@ public class ExperienceRequestDTO {
     
     private String addInfo;
 
-    private Long userId;  
-    private String userName; 
+   
 }

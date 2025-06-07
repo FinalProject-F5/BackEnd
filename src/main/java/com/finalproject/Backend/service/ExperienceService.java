@@ -54,17 +54,12 @@ public class ExperienceService {
                 .map(ExperienceMapper::toDTO);
     }
 
-    public ExperienceResponseDTO create(ExperienceRequestDTO dto) {
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found with id " + dto.getUserId()));
+    public ExperienceResponseDTO create(ExperienceRequestDTO dto, User user) {
         Experience experience = ExperienceMapper.toEntity(dto, user);
         return ExperienceMapper.toDTO(experienceRepository.save(experience));
     }
 
-    public ExperienceResponseDTO update(Long id, ExperienceRequestDTO dto) {
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+    public ExperienceResponseDTO update(Long id, ExperienceRequestDTO dto, User user) {
         Experience experience = experienceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Experience not found"));
 
