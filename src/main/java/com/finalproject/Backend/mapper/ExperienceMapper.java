@@ -17,8 +17,8 @@ public class ExperienceMapper {
         exp.setDescription(dto.getDescription());
         exp.setDuration(dto.getDuration()); 
         exp.setPrice(dto.getPrice()); 
-        exp.setItinerary(dto.getItinerary());
-        exp.setObservation(dto.getObservation());
+       // exp.setItinerary(dto.getItinerary());
+      //  exp.setObservation(dto.getObservation());
         exp.setHost(dto.getHost());
         exp.setEmail(dto.getEmail());
         exp.setMobile(dto.getMobile()); 
