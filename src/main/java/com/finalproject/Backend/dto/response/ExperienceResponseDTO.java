@@ -1,6 +1,7 @@
 package com.finalproject.Backend.dto.response;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,8 @@ public class ExperienceResponseDTO {
     private String mobile;
     private String addInfo;
     private Long userId;
-    private String userName;  
-
+    private String userName;
+    
+    private List<String> imageUrls;
     
 }

@@ -2,6 +2,9 @@ package com.finalproject.Backend.mapper;
 
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.finalproject.Backend.dto.request.ExperienceRequestDTO;
 import com.finalproject.Backend.dto.response.ExperienceResponseDTO;
 import com.finalproject.Backend.model.Experience;
@@ -29,6 +32,11 @@ public class ExperienceMapper {
     }
 
     public static ExperienceResponseDTO toDTO(Experience exp) {
+
+    List<String> imageUrls = exp.getImages().stream()
+        .map(img -> "http://localhost:8080/api/images/" + img.getImageName())
+        .collect(Collectors.toList());
+
     return new ExperienceResponseDTO(
         exp.getId(),                   
         exp.getTitle(),
@@ -44,7 +52,8 @@ public class ExperienceMapper {
         exp.getMobile(),
         exp.getAddInfo(),
         exp.getUser().getId(),
-        exp.getUser().getName() 
+        exp.getUser().getName(),
+        imageUrls
     );
     }
 }

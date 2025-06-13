@@ -1,6 +1,9 @@
 package com.finalproject.Backend.dto.request;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.finalproject.Backend.dto.ImageDTO;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Email;
@@ -62,6 +65,8 @@ public class ExperienceRequestDTO {
 
     
     private String addInfo;
+
+    private List<ImageDTO> images;
 
    
 }

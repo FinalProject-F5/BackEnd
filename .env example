@@ -2,7 +2,7 @@ DATABASE_URL=jdbc:postgresql://localhost:54321/travel
 DATABASE_USERNAME=sameAsPostgresUser
 DATABASE_PASSWORD=sameAsPostgresPassword
 
-
+FILE_UPLOAD_DIRECTORY=uploads/experiences
 
 POSTGRES_HOST=localhost
 POSTGRES_USER=sameAsPostgresUser

@@ -45,7 +45,7 @@ class AuthServiceTest {
 
         
         when(jwtUtils.validateJwtToken(testToken)).thenReturn(true);
-        when(jwtUtils.getNameFromJwtToken(testToken)).thenReturn(testEmail);
+        when(jwtUtils.getEmailFromJwtToken(testToken)).thenReturn(testEmail);
 
       
         User mockUser = new User();
@@ -61,7 +61,7 @@ class AuthServiceTest {
 
         // Verificaciones
         verify(jwtUtils, times(1)).validateJwtToken(testToken);
-        verify(jwtUtils, times(1)).getNameFromJwtToken(testToken);
+        verify(jwtUtils, times(1)).getEmailFromJwtToken(testToken);
         verify(userRepository, times(1)).findByEmail(testEmail);
     }
 
