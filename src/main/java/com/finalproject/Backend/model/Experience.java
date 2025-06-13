@@ -54,11 +54,11 @@ public class Experience {
     @DecimalMin("0.0")
     private BigDecimal price;
 
-    @Size(min = 300)
-    private String itinerary;
+   // @Size(min = 300)
+   // private String itinerary;
 
-    @Size(min = 300)
-    private String observation;
+   // @Size(min = 300)
+   // private String observation;
 
     @NotBlank
     @Size(max = 100)

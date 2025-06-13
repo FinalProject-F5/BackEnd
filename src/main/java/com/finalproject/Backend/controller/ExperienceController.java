@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.finalproject.Backend.dto.request.ExperienceRequestDTO;
 import com.finalproject.Backend.dto.response.ExperienceResponseDTO;
@@ -28,6 +29,8 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/experiences")
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class ExperienceController {
 
     @Autowired

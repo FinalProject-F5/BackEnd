@@ -74,7 +74,7 @@ public class AuthService {
    public boolean verifyToken(String token) {
        try {
            if (jwtUtils.validateJwtToken(token)) {
-               String email = jwtUtils.getNameFromJwtToken(token);
+               String email = jwtUtils.getEmailFromJwtToken(token);
                return userRepository.findByEmail(email).isPresent();
            }
            return false;
