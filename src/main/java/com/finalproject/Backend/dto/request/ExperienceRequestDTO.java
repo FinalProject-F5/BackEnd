@@ -60,12 +60,14 @@ public class ExperienceRequestDTO {
     private String email;
 
     
+    @NotBlank
     @Size(max = 20)
     private String mobile;
 
     
     private String addInfo;
 
+    @NotNull
     private List<ImageDTO> images;
 
    

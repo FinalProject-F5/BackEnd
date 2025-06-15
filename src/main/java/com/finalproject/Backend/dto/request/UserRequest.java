@@ -11,7 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserRequest {
    @NotBlank
-   @Size(max = 50)
+   @Size(min = 2, max = 50)
    private String name;
 
    @NotBlank
@@ -19,7 +19,8 @@ public class UserRequest {
    @Email
    private String email;
 
-   @Size(max = 120)
+   @NotBlank
+   @Size(min = 8, max = 120)
    private String password;
 
    @NotBlank
