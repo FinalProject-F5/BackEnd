@@ -1,6 +1,7 @@
 package com.finalproject.Backend.service;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,6 +49,11 @@ public class ExperienceService {
     }
 
     public List<ExperienceResponseDTO> searchByTitle(String title) {
+
+        if (title == null || title.trim().length() < 3) {
+            return Collections.emptyList();
+        }
+
         return experienceRepository.findByTitleContainingIgnoreCase(title)
                 .stream()
                 .map(ExperienceMapper::toDTO)
