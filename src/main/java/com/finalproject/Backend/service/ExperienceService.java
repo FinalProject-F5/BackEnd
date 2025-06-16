@@ -1,6 +1,7 @@
 package com.finalproject.Backend.service;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,19 +18,16 @@ import com.finalproject.Backend.model.ExperienceImage;
 import com.finalproject.Backend.model.User;
 import com.finalproject.Backend.repository.ExperienceImageRepository;
 import com.finalproject.Backend.repository.ExperienceRepository;
-import com.finalproject.Backend.repository.UserRepository;
 
 @Service
 public class ExperienceService {
 
     private final ExperienceRepository experienceRepository;
-    private final UserRepository userRepository;
     private final ExperienceImageService experienceImageService;
     private final ExperienceImageRepository experienceImageRepository;
 
-    public ExperienceService(ExperienceRepository experienceRepository, UserRepository userRepository, ExperienceImageService experienceImageService, ExperienceImageRepository experienceImageRepository) {
+    public ExperienceService(ExperienceRepository experienceRepository, ExperienceImageService experienceImageService, ExperienceImageRepository experienceImageRepository) {
         this.experienceRepository = experienceRepository;
-        this.userRepository = userRepository;
         this.experienceImageService = experienceImageService;
         this.experienceImageRepository = experienceImageRepository;
     }
@@ -45,6 +43,18 @@ public class ExperienceService {
 
     public List<ExperienceResponseDTO> getAll() {
         return experienceRepository.findAll()
+                .stream()
+                .map(ExperienceMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ExperienceResponseDTO> searchByTitle(String title) {
+
+        if (title == null || title.trim().length() < 3) {
+            return Collections.emptyList();
+        }
+
+        return experienceRepository.findByTitleContainingIgnoreCase(title)
                 .stream()
                 .map(ExperienceMapper::toDTO)
                 .collect(Collectors.toList());
