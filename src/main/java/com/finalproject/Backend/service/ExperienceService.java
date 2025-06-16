@@ -17,19 +17,16 @@ import com.finalproject.Backend.model.ExperienceImage;
 import com.finalproject.Backend.model.User;
 import com.finalproject.Backend.repository.ExperienceImageRepository;
 import com.finalproject.Backend.repository.ExperienceRepository;
-import com.finalproject.Backend.repository.UserRepository;
 
 @Service
 public class ExperienceService {
 
     private final ExperienceRepository experienceRepository;
-    private final UserRepository userRepository;
     private final ExperienceImageService experienceImageService;
     private final ExperienceImageRepository experienceImageRepository;
 
-    public ExperienceService(ExperienceRepository experienceRepository, UserRepository userRepository, ExperienceImageService experienceImageService, ExperienceImageRepository experienceImageRepository) {
+    public ExperienceService(ExperienceRepository experienceRepository, ExperienceImageService experienceImageService, ExperienceImageRepository experienceImageRepository) {
         this.experienceRepository = experienceRepository;
-        this.userRepository = userRepository;
         this.experienceImageService = experienceImageService;
         this.experienceImageRepository = experienceImageRepository;
     }
