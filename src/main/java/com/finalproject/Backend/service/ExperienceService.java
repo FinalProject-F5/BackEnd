@@ -47,6 +47,13 @@ public class ExperienceService {
                 .collect(Collectors.toList());
     }
 
+    public List<ExperienceResponseDTO> searchByTitle(String title) {
+        return experienceRepository.findByTitleContainingIgnoreCase(title)
+                .stream()
+                .map(ExperienceMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public List<ExperienceResponseDTO> getByUserId(Long userId) {
         return experienceRepository.findByUserId(userId)
                 .stream()
