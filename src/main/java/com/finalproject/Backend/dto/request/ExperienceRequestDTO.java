@@ -47,8 +47,8 @@ public class ExperienceRequestDTO {
     //@Size(min = 300)
   //  private String itinerary;
 
-   // @Size(min = 300)
-   // private String observation;
+    @Size(min = 50)
+   private String observation;
 
     @NotBlank
     @Size(max = 100)
