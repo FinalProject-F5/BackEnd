@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -54,6 +55,10 @@ public class ExperienceController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<ExperienceResponseDTO>> searchEvents(@RequestParam String title) {
+        return ResponseEntity.ok(experienceService.searchByTitle(title));
+    }
 
     @PostMapping
     public ResponseEntity<ExperienceResponseDTO> createExperience(@Valid @RequestBody ExperienceRequestDTO dto) {
@@ -88,7 +93,6 @@ public class ExperienceController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
-
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         return userService.getUserByEmail(userDetails.getUsername());
