@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.persistence.Column;
 
 @Getter
 @Setter
@@ -58,10 +59,12 @@ public class Experience {
     @DecimalMin("0.0")
     private BigDecimal price;
 
-   // @Size(min = 300)
-   // private String itinerary;
+    @Column(columnDefinition = "TEXT")
+    @Size(max = 2000)
+   private String itinerary;
 
-    @Size(min = 50)
+   @Column(columnDefinition = "TEXT")
+    @Size(max = 2000)
     private String observation;
 
     @NotBlank

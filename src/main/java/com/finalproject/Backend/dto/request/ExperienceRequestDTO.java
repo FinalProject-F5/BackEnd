@@ -44,10 +44,10 @@ public class ExperienceRequestDTO {
     @DecimalMin("0.0")
     private BigDecimal price;
 
-    //@Size(min = 300)
-  //  private String itinerary;
+    @Size(max = 2000)
+  private String itinerary;
 
-    @Size(min = 50)
+    @Size(max = 2000)
    private String observation;
 
     @NotBlank

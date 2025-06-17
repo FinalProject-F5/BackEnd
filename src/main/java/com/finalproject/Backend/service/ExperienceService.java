@@ -113,7 +113,7 @@ public class ExperienceService {
         experience.setDescription(dto.getDescription());
         experience.setDuration(dto.getDuration()); 
         experience.setPrice(dto.getPrice()); 
-      //  experience.setItinerary(dto.getItinerary());
+       experience.setItinerary(dto.getItinerary());
         experience.setObservation(dto.getObservation());
         experience.setHost(dto.getHost());
         experience.setEmail(dto.getEmail());
