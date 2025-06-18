@@ -70,9 +70,8 @@ This backend provides the following functionalities to support the Travel4Real p
 
 ## 📄 .env Example
 
-Before running the application, make sure to configure your environment variables. Use the following example as a reference:
+You must create and configure a .env file before running the application. Use the example below as a reference:
 
-.env.example
 
 DATABASE_URL=jdbc:postgresql://localhost:54321/travel
 DATABASE_USERNAME=sameAsPostgresUser
@@ -86,7 +85,7 @@ POSTGRES_PORT=54321
 
 PGADMIN_DEFAULT_EMAIL=yourname@email.com
 PGADMIN_DEFAULT_PASSWORD=
-
+FILE_UPLOAD_DIRECTORY=uploads/experiences
 
 💡 **Nota**: Cambia los valores `sameAsPostgresUser` y `sameAsPostgresPassword` por tus credenciales reales. No dejes el campo `PGADMIN_DEFAULT_PASSWORD` vacío si planeas usar pgAdmin de forma segura.
 

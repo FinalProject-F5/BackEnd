@@ -11,9 +11,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
  
 import java.util.List;
@@ -71,7 +68,7 @@ public class UserController {
    
     @GetMapping("/myexperiences")
     public ResponseEntity<List<ExperienceResponseDTO>> getExperiencesByUser() {
-        Optional<User> authenticatedUser = getAuthenticatedUser();
+        Optional<User> authenticatedUser = userService.getAuthenticatedUser();
         if (!authenticatedUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -79,15 +76,4 @@ public class UserController {
         return ResponseEntity.ok(experienceService.getByUserId(authenticatedUser.get().getId()));
     }
 
-    private Optional<User> getAuthenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return null;
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        return userService.getUserByEmail(userDetails.getUsername());
-    }
 }

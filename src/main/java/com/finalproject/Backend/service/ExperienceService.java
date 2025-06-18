@@ -18,6 +18,7 @@ import com.finalproject.Backend.model.ExperienceImage;
 import com.finalproject.Backend.model.User;
 import com.finalproject.Backend.repository.ExperienceImageRepository;
 import com.finalproject.Backend.repository.ExperienceRepository;
+import com.finalproject.Backend.util.ImageValidator;
 
 @Service
 public class ExperienceService {
@@ -77,7 +78,9 @@ public class ExperienceService {
         experience = experienceRepository.save(experience);
         
         try {
+
             if (dto.getImages() != null && !dto.getImages().isEmpty()) {
+                ImageValidator.validateImages(dto.getImages()); 
                 for (ImageDTO imageDTO : dto.getImages()) {
                     String filePath = experienceImageService.saveBase64File(
                         imageDTO.getBase64(), 
@@ -122,6 +125,7 @@ public class ExperienceService {
         experience.setUser(user);
 
          if (dto.getImages() != null && !dto.getImages().isEmpty()) { 
+            ImageValidator.validateImages(dto.getImages()); 
 
             List<ExperienceImage> existingImages = experienceImageRepository.findByExperienceId(id);
             for (ExperienceImage img : existingImages) {

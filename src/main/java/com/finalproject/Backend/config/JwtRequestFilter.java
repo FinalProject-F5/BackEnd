@@ -57,8 +57,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                email = jwtUtils.getEmailFromJwtToken(jwtToken);
            } catch (IllegalArgumentException e) {
                logger.error("Unable to get JWT token");
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unable to get JWT token");
+                return;
            } catch (ExpiredJwtException e) {
                logger.error("JWT token expired");
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "JWT token expired");
+                return;
            }
        } else {
            logger.warn("JWT Token does not begin with Bearer String");
@@ -76,7 +80,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                        new WebAuthenticationDetailsSource().buildDetails(request));
                
                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-           }
+           } else {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid JWT Token");
+                return;
+            }
        }
        
        chain.doFilter(request, response);
