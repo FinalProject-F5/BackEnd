@@ -4,7 +4,6 @@ package com.finalproject.Backend.controller;
 import com.finalproject.Backend.dto.request.LoginRequest;
 import com.finalproject.Backend.dto.request.UserRequest;
 import com.finalproject.Backend.dto.response.JwtResponse;
-import com.finalproject.Backend.model.User;
 import com.finalproject.Backend.service.AuthService;
 import com.finalproject.Backend.service.UserService;
 

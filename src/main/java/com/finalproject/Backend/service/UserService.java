@@ -6,7 +6,11 @@ import com.finalproject.Backend.exception.ResourceNotFoundException;
 import com.finalproject.Backend.model.Country;
 import com.finalproject.Backend.model.User;
 import com.finalproject.Backend.repository.UserRepository;  
-import com.finalproject.Backend.repository.CountryRepository;  
+import com.finalproject.Backend.repository.CountryRepository;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -88,5 +92,15 @@ public class UserService {
        userRepository.delete(user);
    }
 
+    public Optional<User> getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        return getUserByEmail(userDetails.getUsername());
+    }
    
 }

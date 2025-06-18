@@ -6,9 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +59,7 @@ public class ExperienceController {
 
     @PostMapping
     public ResponseEntity<ExperienceResponseDTO> createExperience(@Valid @RequestBody ExperienceRequestDTO dto) {
-        Optional<User> authenticatedUser = getAuthenticatedUser();
+        Optional<User> authenticatedUser = userService.getAuthenticatedUser();
         if (!authenticatedUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -73,7 +70,7 @@ public class ExperienceController {
     @PutMapping("/{id}")
     public ResponseEntity<ExperienceResponseDTO> updateExperience(@PathVariable Long id,
             @Valid @RequestBody ExperienceRequestDTO dto) {
-        Optional<User> authenticatedUser = getAuthenticatedUser();
+        Optional<User> authenticatedUser = userService.getAuthenticatedUser();
         if (!authenticatedUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -83,18 +80,16 @@ public class ExperienceController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExperience(@PathVariable Long id) {
-        experienceService.delete(id);
+        Optional<User> authenticatedUser = userService.getAuthenticatedUser();
+        if (!authenticatedUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        boolean deleted = experienceService.delete(id, authenticatedUser.get());
+        if (!deleted) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         return ResponseEntity.noContent().build();
     }
 
-    private Optional<User> getAuthenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return null;
-        }
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        return userService.getUserByEmail(userDetails.getUsername());
-    }
+   
 }
