@@ -21,8 +21,8 @@ public class ExperienceResponseDTO {
     private String description;
     private String duration;
     private BigDecimal price;
-   // private String itinerary;
-   // private String observation;
+   private String itinerary;
+   private String observation;
     private String host;
     private String email;
     private String mobile;
