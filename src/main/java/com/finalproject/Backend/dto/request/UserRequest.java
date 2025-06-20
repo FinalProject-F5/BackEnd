@@ -31,11 +31,6 @@ public class UserRequest {
    @NotBlank
    @Size(max = 20)
    private String countryCode;
-   
-   // @Size(max = 200)
-   // private String interest;
-
-   // @Size(max = 200)
-   // private String bio;
+  
  
 }

@@ -37,33 +37,13 @@ public class UserController {
        return ResponseEntity.ok(users);
    }
 
-//    @GetMapping("/{id}") 
-//    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-//        User user = userService.getUserById(id); 
-//        return ResponseEntity.ok(user);
-//    }
+
 
    @PostMapping 
    public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest userRequest) {
        User user = userService.createUser(userRequest); 
        return ResponseEntity.ok(user);
    }
-// si vamos hacer el USER PROFILE, esta parte debe ser corregida, solo the USER logged puede modificar SU perfil, con el codigo actual puede modificar y eliminar cualquier usuario.
-
-//    @PutMapping("/{id}") 
-//    public ResponseEntity<?> updateUser(
-//            @PathVariable Long id,
-//            @Valid @RequestBody UserRequest userRequest) {
-       
-//        User user = userService.updateUser(id, userRequest); 
-//        return ResponseEntity.ok(user);
-//    }
-
-//    @DeleteMapping("/{id}") 
-//    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-//        userService.deleteUser(id);
-//        return ResponseEntity.ok("User successfully deleted");
-//    }
 
    
     @GetMapping("/myexperiences")

@@ -57,7 +57,7 @@ class JwtUtilsTest {
     @DisplayName("Test 1: validateJwtToken - Valid TOKEN return true")
     void validateJwtToken_ValidToken_ReturnsTrue() {
         // ARRANGE
-        // Genera un token que expira en el futuro
+       
         Date futureDate = new Date(System.currentTimeMillis() + testExpirationMs);
         String validToken = generateValidTestToken("testuser@example.com", futureDate);
 

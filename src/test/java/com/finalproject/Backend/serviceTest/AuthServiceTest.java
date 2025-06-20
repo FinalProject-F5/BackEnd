@@ -59,7 +59,7 @@ class AuthServiceTest {
         // ASSERT
         assertTrue(result, "The token should be valid and the user should exist");
 
-        // Verificaciones
+       
         verify(jwtUtils, times(1)).validateJwtToken(testToken);
         verify(jwtUtils, times(1)).getEmailFromJwtToken(testToken);
         verify(userRepository, times(1)).findByEmail(testEmail);

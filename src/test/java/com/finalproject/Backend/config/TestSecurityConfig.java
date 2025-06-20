@@ -22,7 +22,7 @@ public class TestSecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll() // Permitir todas las rutas /api/** en tests
+                .requestMatchers("/api/**").permitAll() 
                 .anyRequest().authenticated()
             );
         
