@@ -27,6 +27,7 @@ public class CategoryControllerIntegrationTest {
     @Test
     @WithMockUser
     public void getAllCategories_ShouldReturnOkAndJsonContent() throws Exception {
+        //ACT & ASSERT
         mockMvc.perform(get("/api/categories/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -35,6 +36,7 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void getAllCategories_WithoutAuth_ShouldReturnForbidden() throws Exception {
+         //ACT & ASSERT
         mockMvc.perform(get("/api/categories/all"))
                 .andExpect(status().isForbidden());
     }
